@@ -1,0 +1,25 @@
+<% if @user.errors.any? %>
+<!-- ↑@bookにエラーがあるか(バリデーションに引っかかったか) -->
+  <div id="error_explanation">
+  <div class="alert alert-danger">The form contains <%= pluralize(@user.errors.count, "error") %>.
+</div>
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+       </ul>
+  </div>
+<% end %>
+
+<h1>User info</h1>
+<%= form_for(@user) do |f| %>
+    <h4>name</h4>
+    <%= f.text_field :name %>
+
+    <h4>image</h4>
+    <%= f.attachment_field :profile_image %>
+
+    <h4>introduction</h4>
+    <%= f.text_area :introduction %>
+    <p><%= f.submit 'Update User' %></p>
+<% end %>

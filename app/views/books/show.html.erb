@@ -1,0 +1,43 @@
+<div class="body">
+	<div class="container">
+		<p><%= flash[:notice] %></p>
+<% if @book.errors.any? %>
+<!-- ↑@bookにエラーがあるか(バリデーションに引っかかったか) -->
+  <div id="error_explanation" class="alert alert-danger">
+    <ul>
+      <% @book.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+   </ul>
+  </div>
+<% end %>
+
+<div class="row">
+<!--ここから 部分テンプレート -->
+<%= render 'users/list', book: @book , user: @book.user %>
+<!-- ここまで　部分テンプレート -->
+
+<div class="col-xs-9">
+<h2>Book detail</h2>
+<table class="table">
+<tbody>
+	<tr>
+		<td><%= attachment_image_tag @book.user, :profile_image, :fill, 40, 40, format: 'jpeg',fallback:"no_image.jpg",size:'40x40' %><br>
+			<!--↓変数、モデル、カラム -->
+			<%= link_to @book.user.name, user_path(@book.user_id) %>
+		</td>
+		<td><%= @book.title %></td>
+		<td><%= @book.body %></td>
+
+		<% if user_signed_in? && @book.user_id == current_user.id %>
+		<td><%= link_to "Edit", edit_book_path, class:"btn-sm btn-success" %></td>
+		<td><%= link_to "Destroy", book_path(@book),  method: :delete, "data-confirm" => "本当に消しますか？",class:"btn-sm btn-danger" %>
+		</td>
+		<% end %>
+	</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
