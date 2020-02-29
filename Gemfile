@@ -78,4 +78,4 @@ gem "refile-mini_magick"
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'jquery-rails'
 
-gem 'rake', '<11.0'
+gem 'rake', '<13.0'
